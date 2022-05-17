@@ -1,9 +1,0 @@
-{
-  "name": "hardhat-project",
-  "dependencies": {
-    "dotenv": "^16.0.1"
-  },
-  "devDependencies": {
-    "hardhat": "^2.9.5"
-  }
-}

@@ -12,4 +12,5 @@ npx hardhat test
 npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
+0xBFA7d03eB043Fe70ec9A1326b56CEB0b72ad5551 conttract address
 ```
