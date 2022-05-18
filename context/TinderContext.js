@@ -10,7 +10,7 @@ export const TinderProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [currentAccount, setCurrentAccount] = useState();
     const [cardsData, setCardsData] = useState([]);
-    const { authenticate, isAuthenticated, user } = useMoralis();
+    const { authenticate, isAuthenticated, user ,Moralis } = useMoralis();
 
 
     useEffect(() => {
@@ -26,10 +26,10 @@ export const TinderProvider = ({ children }) => {
     const checkWalletConnection = async () => {
         if (isAuthenticated) {
           const address = user.get('ethAddress')
-          setCurrentAccount(address)
-          requestToCreateUserProfile(address, faker.name.findName())
+          setCurrentAccount(address);
+          requestToCreateUserProfile(address, faker.name.findName());
         } else {
-          setCurrentAccount('')
+          setCurrentAccount('');
         }
     }
 
@@ -37,7 +37,7 @@ export const TinderProvider = ({ children }) => {
         if (!isAuthenticated) {
           try {
             await authenticate({
-              signingMessage: 'Log in using Moralis',
+              signingMessage: 'Log in to out tinder clone using Moralis',
             })
           } catch (error) {
             console.error(error)
@@ -46,9 +46,50 @@ export const TinderProvider = ({ children }) => {
       }
 
     const disconnectWallet = async () => {
-    await Moralis.User.logOut()
-    setCurrentAccount('')
+      await Moralis.User.logOut()
+      setCurrentAccount('')
     }
+
+    const requestToCreateUserProfile = async (walletAddress,name) => {
+        try{
+          await fetch('/api/createUser',{
+              method: 'POST',
+              headers: { 'Content-Type':'application/json'},
+              body: JSON.stringify({
+                name:name,
+                userWalletAddress:walletAddress
+              })
+          })
+          .then(response => response.json)
+          .then(res => console.log(res))
+        }
+        catch(error) {
+          console.error(error)
+        }
+    }
+
+    const requestCurrentUserData = async (walletAddress) =>{
+        try {
+          const response  = await fetch(`/api/fetchCurrentUser?activeAccount=${walletAddress}`);
+          const data = await response.json();
+          setCurrentUser(data.data);
+        }
+        catch(error) {
+          console.error(error)
+        }
+    }
+
+    const requestUsersData = async (walletAddress) =>{
+      try {
+        const response  = await fetch(`/api/fetchUsers?activeAccount=${walletAddress}`);
+        const data = await response.json();
+        setCardsData(data.data);
+      }
+      catch(error) {
+        console.error(error)
+      }
+    }
+
     return (
         <TinderContext.Provider
           value={{

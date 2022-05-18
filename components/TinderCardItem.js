@@ -39,16 +39,16 @@ const TinderCardItem = ({ card }) => {
     >
       <div
         className={style.wrapper}
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1648737965782-94fb1b30f768?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60')` }}
+        style={{ backgroundImage: `url('${card.imageUrl}')` }}
       >
         <div className={style.space}>
           <div className={style.name}>
-            Tolulope
-            <span className={style.age}>99</span>
+            {card.name}
+            <span className={style.age}>{card?.age}</span>
           </div>
         </div>
         <div className={style.walletAddress}>
-            0x65...7c15
+          {card.walletAddress?.slice(0, 6)}...{card.walletAddress?.slice(39)}
         </div>
         <div className={style.reactionsContainer}>
           <div className={`${style.backColors} ${style.buttonContainer}`}>

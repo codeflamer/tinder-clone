@@ -16,11 +16,11 @@ const styles = {
     authButton: `bg-white font-bold text-red-500 px-6 py-3 items-center ml-4 rounded-lg hover:bg-red-500 duration-300 hover:text-white`,
   }
 
-  const currentAccount ='0x65512323D9FBC19aE98b832f5259ad62a13F7c15';
+// const currentAccount ='0x65512323D9FBC19aE98b832f5259ad62a13F7c15';
 
 const Header = () => {
 
-    const {connectWallet,currentAccount,disconnectWallet} = useContext(TinderContext)
+  const {connectWallet,currentAccount,disconnectWallet} = useContext(TinderContext)
 
   return (
     <div className={`${styles.wrapper} ${
@@ -43,14 +43,14 @@ const Header = () => {
                 {currentAccount ? (
           <>
             <div className={styles.currentAccount}>
-              {/* <Image
+              <Image
                 src={
                   'https://moralis.io/wp-content/uploads/2021/05/moralisWhiteLogo.svg'
                 }
                 alt='moralis'
                 height={20}
                 width={20}
-              /> */}
+              />
               <span className={styles.accountAddress}>
                 {currentAccount.slice(0, 6)}...{currentAccount.slice(39)}
               </span>
