@@ -1,4 +1,6 @@
 
+import { client } from "../../lib/sanity"
+
 const safeLike = async(req,res) =>{
     try{
         await client
